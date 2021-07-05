@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sapient.spring.model.Product;
-import com.sapient.spring.repository.ProductRepository;
 import com.sapient.spring.service.ProductService;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 public class ProductRestController {
-	@Autowired
-	private ProductRepository productRepository;
+	
 	@Autowired
 	private ProductService productService;
 	

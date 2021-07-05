@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sapient.spring.model.CartItem;
 import com.sapient.spring.model.Product;
+import com.sapient.spring.repository.IProductRepository;
 import com.sapient.spring.repository.ProductRepository;
 
 @Service
@@ -21,6 +22,8 @@ public class ProductService {
 	@Autowired
 	private CartItemService cartItemService;
 	
+	@Autowired
+	private IProductRepository iProductRepository;
 	
 	
 	public void addToCart(Product product) {
@@ -33,7 +36,8 @@ public class ProductService {
 		
 	}
 	public List<Product> showAllProduct() {
-		return productRepository.fetchAllProducts();
+//		return productRepository.fetchAllProducts();
+		return (List<Product>) iProductRepository.findAll();
 	}
 //	public List<Product> showAllElectronicsProduct() {
 //		List<Product> products =productRepository.fetchAllProducts().stream().filter(product -> (product.getCategory()==1)).collect(Collectors.toList());
@@ -54,7 +58,8 @@ public class ProductService {
 //	}
 	//admin function
 	public void addTheProduct(Product product) {
-		productRepository.saveProduct(product);
+//		productRepository.saveProduct(product);
+		iProductRepository.save(product);
 	}
 	public List<Product> fetchProductBySpecificCategory(String category) {
 
@@ -65,11 +70,13 @@ public class ProductService {
 		categoryMapping.put("others", 3);
 		
 		int val = categoryMapping.get(category);
-		List<Product> products = productRepository.fetchAllProducts().stream().filter(product ->product.getCategory()==val).collect(Collectors.toList());
+//		List<Product> products = iProductRepository.fetchAllProducts().stream().filter(product ->product.getCategory()==val).collect(Collectors.toList());
+		List<Product> products = ((List<Product>) iProductRepository.findAll()).stream().filter(product -> product.getCategory()== val).collect(Collectors.toList());
 		
 		
 		return products;
 	}
+	
 	
 	
 

@@ -28,11 +28,11 @@ public class ProductRestController {
         List<Product> products = productService.showAllProduct();
         return new ResponseEntity(products, HttpStatus.OK);
     }
-	@GetMapping("products/{category}")
-	public ResponseEntity<List<Product>> showListOfProductsOfCategory(@PathVariable("category") String category){
-		List<Product> products = productService.fetchProductBySpecificCategory(category);
-		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
-	}
+//	@GetMapping("products/{category}")
+//	public ResponseEntity<List<Product>> showListOfProductsOfCategory(@PathVariable(value = "category") String category){
+//		List<Product> products = productService.fetchProductBySpecificCategory(category);
+//		return new ResponseEntity(products, HttpStatus.OK);
+//	}
     @PostMapping("/products")
     public ResponseEntity addProduct( @RequestBody Product product){
         log.info("Product to be added : {}",product);
@@ -40,17 +40,18 @@ public class ProductRestController {
         return new ResponseEntity("Product has been created successfully", HttpStatus.CREATED);
 
     }
-    @GetMapping("products/{id}")
-    public ResponseEntity<Product> showProductByCategory(@PathVariable("id") long id){
-    	Optional<Product> product = productService.fetchProductById(id);
+    @GetMapping("/products/{id}")
+    public ResponseEntity<Product> showProductById(@PathVariable Long id){
+    	Product product = productService.fetchProductById(id);
     	return new ResponseEntity(product, HttpStatus.OK);
     	
     }
-    @PostMapping("products/{id}/addToCart")
-    public ResponseEntity addToCart(@PathVariable(value = "product_id")Long id ,@RequestBody Product product) {
-    	
-    	productService.addToCart(product);
-    	return new ResponseEntity("Product has been added in the cart",HttpStatus.CREATED);
-    }
+//    not go this way 
+//    @PostMapping("products/{id}/addToCart")
+//    public ResponseEntity addToCart(@PathVariable(value = "product_id")Long id ,@RequestBody Product product) {
+//    	
+//    	productService.addToCart(product);
+//    	return new ResponseEntity("Product has been added in the cart",HttpStatus.CREATED);
+//    }
 
 }

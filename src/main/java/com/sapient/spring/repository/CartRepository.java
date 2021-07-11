@@ -2,7 +2,7 @@ package com.sapient.spring.repository;
 
 import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 public class CartRepository {
 
 }

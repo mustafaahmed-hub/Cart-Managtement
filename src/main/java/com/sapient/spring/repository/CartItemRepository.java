@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sapient.spring.model.CartItem;
 
-@Repository
+//@Repository
 public class CartItemRepository {
 	List<CartItem> cartItems = new ArrayList();
 	

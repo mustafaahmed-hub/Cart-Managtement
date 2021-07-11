@@ -15,7 +15,10 @@ import com.sapient.spring.model.Product;
 import com.sapient.spring.repository.IProductRepository;
 import com.sapient.spring.repository.ProductRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ProductService {
 	
 	@Autowired
@@ -27,15 +30,15 @@ public class ProductService {
 	private IProductRepository iProductRepository;
 	
 	
-	public void addToCart(Product product) {
-		CartItem cartItem = new CartItem();
-		cartItem.setItemName(product.getName());
-		cartItem.setPrice(product.getPrice());
-		cartItem.setQuantity(1);
-		cartItem.setId(product.getId());
-		cartItemService.addToCart(cartItem);
-		
-	}
+//	public void addToCart(Product product) {
+//		CartItem cartItem = new CartItem();
+//		cartItem.setItemName(product.getName());
+//		cartItem.setPrice(product.getPrice());
+//		cartItem.setQuantity(1);
+//		cartItem.setId(product.getId());
+//		cartItemService.addToCart(cartItem);
+//		
+//	}
 	public List<Product> showAllProduct() {
 //		return productRepository.fetchAllProducts();
 		return (List<Product>) iProductRepository.findAll();
@@ -63,7 +66,10 @@ public class ProductService {
 		iProductRepository.save(product);
 	}
 	public List<Product> fetchProductBySpecificCategory(String category) {
-
+		
+		log.info(category);
+		System.out.println();
+		System.out.println(category);
 		Map<String, Integer> categoryMapping = new HashMap<String, Integer>();
 		categoryMapping.put("electronics", 1);
 		categoryMapping.put("clothing", 0);
@@ -77,9 +83,10 @@ public class ProductService {
 		
 		return products;
 	}
-	public Optional<Product> fetchProductById(long id) {
+	public Product fetchProductById(Long id) {
 		Optional<Product> product = iProductRepository.findById(id);
-		return product;
+		
+		return product.get();
 	}
 	
 	

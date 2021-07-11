@@ -14,7 +14,8 @@ public class CartRestControllerTest {
 
 	@Test
 	public void shouldReturnListOfCartItems() {
-		given().log().all().when().get("http://localhost/8080/cart").then().statusCode(200).log().all();
+		//specify the cart id
+		given().log().all().when().get("http://localhost/8080/cart/cartId").then().statusCode(200).log().all();
 		
 	}
 	@Test

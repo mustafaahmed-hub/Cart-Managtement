@@ -3,6 +3,7 @@ package com.sapient.spring.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -75,6 +76,10 @@ public class ProductService {
 		
 		
 		return products;
+	}
+	public Optional<Product> fetchProductById(long id) {
+		Optional<Product> product = iProductRepository.findById(id);
+		return product;
 	}
 	
 	

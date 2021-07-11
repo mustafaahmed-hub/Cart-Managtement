@@ -1,6 +1,7 @@
 package com.sapient.spring.controller.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,18 @@ public class ProductRestController {
         productService.addTheProduct(product);
         return new ResponseEntity("Product has been created successfully", HttpStatus.CREATED);
 
+    }
+    @GetMapping("products/{id}")
+    public ResponseEntity<Product> showProductByCategory(@PathVariable("id") long id){
+    	Optional<Product> product = productService.fetchProductById(id);
+    	return new ResponseEntity(product, HttpStatus.OK);
+    	
+    }
+    @PostMapping("products/{id}/addToCart")
+    public ResponseEntity addToCart(@PathVariable(value = "product_id")Long id ,@RequestBody Product product) {
+    	
+    	productService.addToCart(product);
+    	return new ResponseEntity("Product has been added in the cart",HttpStatus.CREATED);
     }
 
 }

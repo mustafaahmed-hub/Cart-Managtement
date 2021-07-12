@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Component
 @Data
 @NoArgsConstructor
@@ -32,10 +33,10 @@ public class CartItem {
 	private long id;
 	private int quantity;
 	private Double price;
-	
-	@ManyToOne
+
 	@JsonIgnore
-	@JoinColumn(name = "cart_id",nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "cart_id", nullable = false)
 	private Cart cart;
 
 }

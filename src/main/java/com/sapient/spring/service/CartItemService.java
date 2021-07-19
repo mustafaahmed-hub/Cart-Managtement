@@ -27,6 +27,7 @@ public class CartItemService {
 		if(cartItem.isPresent()) {
 			CartItem item = cartItem.get();
 			item.setQuantity(item.getQuantity()+1);
+			iCartItemRepository.save(item);
 		}
 		else
 			throw new CartItemNotFoundException("Cart item not found with id :"+id);
@@ -37,7 +38,7 @@ public class CartItemService {
 		if(cartItem.isPresent()) {
 			CartItem item = cartItem.get();
 			item.setQuantity(item.getQuantity()-1);
-			
+			iCartItemRepository.save(item);
 		}
 		else
 			throw new CartItemNotFoundException("Cart item not found with id :"+id);

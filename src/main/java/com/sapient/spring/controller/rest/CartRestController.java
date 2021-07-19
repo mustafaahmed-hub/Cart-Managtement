@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sapient.spring.model.Cart;
+import com.sapient.spring.model.CartItem;
 import com.sapient.spring.model.Product;
 import com.sapient.spring.service.CartItemService;
 import com.sapient.spring.service.CartService;
-@Controller
+@RestController
 public class CartRestController {
 	@Autowired
 	CartService cartService;
@@ -27,8 +29,28 @@ public class CartRestController {
     	
     	cartService.addToCart(product,id);
 //		cartItemService.addToCart(product, id);
+    	cartService.findTotalValue(id);
     	return new ResponseEntity("Product has been added in the cart",HttpStatus.CREATED);
     }
+	@GetMapping("/carts/{id}")
+	public ResponseEntity showCartItemsOfCart(@PathVariable Long id) {
+		List<CartItem> cartItems = cartService.getCartItems(id);
+		cartService.findTotalValue(id);
+		return new ResponseEntity(cartItems,HttpStatus.OK); 
+	}
+	@PostMapping("/carts/{itemId}/increaseQuantity")
+	public ResponseEntity increaseItemQuantity(@PathVariable Long itemId){
+		cartItemService.increaseQuantity(itemId);
+		return new ResponseEntity("Item quantity increased",HttpStatus.OK);
+		
+	}
+	@PostMapping("/carts/{itemId}/decreaseQuantity")
+	public ResponseEntity decreaseItemQuantity(@PathVariable Long itemId){
+		cartItemService.decreaseQuantity(itemId);
+		return new ResponseEntity("Item quantity decreased",HttpStatus.OK);
+		
+	}
+
 	@PostMapping("/carts")
 	public ResponseEntity initialilzeCart(@RequestBody Cart cart) {
 		cartService.initializeCart(cart);
@@ -49,5 +71,6 @@ public class CartRestController {
 		
 		
 	}
+	
 
 }

@@ -20,7 +20,7 @@ public class CartRestControllerTest {
 	@Test
 	public void shouldReturnListOfCartItems() {
 		
-		given().log().all().when().get("http://localhost/8080/carts").then().statusCode(200);
+		given().log().all().when().get("http://localhost/8080/carts").then().statusCode(200).log().all();
 		
 	}
     @Test
